@@ -31,4 +31,8 @@ public class Coord {
 	public int hashCode() {
 		return Objects.hash(x,y);
 	}
+	
+	public String toString() {
+		return "<Coord x: %d y: %d>".formatted(x,y);
+	}
 }
