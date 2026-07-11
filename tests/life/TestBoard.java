@@ -73,5 +73,23 @@ class TestBoard {
 		
 		assertFalse(fixture.check_living(), "Boards with no stuff are dead");
 	}
+	
+	@Test
+	void testEquals() {
+		Coord a1 = new Coord(1,1);
+		Coord a2 = new Coord(2,2);
+		Coord b1 = new Coord(1,1);
+		Coord b2 = new Coord(2,2);
+		assertEquals(a1,b1);
+		assertEquals(a2,b2);
+		Board board_a = new Board();
+		Board board_b = new Board();
+		board_a.place_shape(a1);
+		board_a.place_shape(a2);
+		assertNotEquals(board_a,board_b);
+		board_b.place_shape(b1);
+		board_b.place_shape(b2);
+		assertEquals(board_a,board_b);
+	}
 
 }

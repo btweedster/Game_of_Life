@@ -1,7 +1,9 @@
 package life;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class Board {
 	Set<Coord> cells = new HashSet<Coord>();
@@ -97,5 +99,27 @@ public class Board {
 	
 	public Set<Coord> get_cells() {
 		return cells;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Board b = (Board) o;
+		// checks if all elements in each set are the same
+		return cells.containsAll(b.cells) && 
+				b.cells.containsAll(cells);
+	}
+	
+	@Override
+	public int hashCode() {
+		// hashCode should be the same if all Coords are the same.
+		int h = 0;
+		for (Coord c : cells) {
+			if (c != null) {
+				h = h + c.hashCode();
+			}
+		}
+		return h;
 	}
 }

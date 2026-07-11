@@ -38,7 +38,7 @@ public class Controls {
 		if (selected_shape == null) {
 			game.place_shape(current_selection);
 		} else {
-			game.place_shape(current_selection.get_tl(), selected_shape);
+			game.place_shape(current_selection, selected_shape);
 		}
 	}
 	
