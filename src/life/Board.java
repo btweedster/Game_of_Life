@@ -1,9 +1,6 @@
 package life;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Iterator;
-import java.util.Objects;
 
 public class Board {
 	Set<Coord> cells = new HashSet<Coord>();
@@ -21,8 +18,18 @@ public class Board {
 			place_shape(loc);
 			return;
 		}
-		Long offset_x = loc.get_x();
-		Long offset_y = loc.get_y();
+		Long shape_offset_x = 0L;
+		Long shape_offset_y = 0L;
+		for (Coord cell: shape.cells) {
+			if (cell.get_x() > shape_offset_x) {
+				shape_offset_x = cell.get_x();
+			}
+			if (cell.get_y() > shape_offset_y) {
+				shape_offset_y = cell.get_y();
+			}
+		}
+		Long offset_x = loc.get_x() - shape_offset_x;
+		Long offset_y = loc.get_y() - shape_offset_y;
 		for (Coord cell: shape.cells) {
 			Long new_x = cell.get_x() + offset_x;
 			Long new_y = cell.get_y() + offset_y;
@@ -37,16 +44,7 @@ public class Board {
 	public Board get_shape(Selection selection) {
 		Board result = new Board();
 		for(Coord cell: cells) {
-			// check that it's down and to the right of top left
-			Long x = cell.get_x();
-			Long y = cell.get_y();
-			
-			if (
-				x >= selection.get_min_x() &&
-				x <= selection.get_max_x() &&
-				y >= selection.get_min_y() &&
-				y <= selection.get_max_y()
-			) {
+			if (selection.contains(cell)) {
 				result.cells.add(cell);
 			}
 		}

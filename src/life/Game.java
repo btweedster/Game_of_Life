@@ -26,6 +26,8 @@ public class Game {
 			// If loop_map contains the board, it is due to a loop
 			if (loop_map.containsKey(b)) {
 				history_position = loop_map.get(b);
+				// If we want to stop when we hit loops uncomment the next line
+				// return false;
 			} else {
 				board_history.add(b);
 				history_position++;
@@ -47,19 +49,13 @@ public class Game {
 		return board_history.get(history_position).get_cells();
 	}
     
-	public void place_shape(Selection s) {
-		// get the midpoint between two coordinates in selection
-		Long x = (s.get_tl().get_x() + s.get_br().get_x()) / 2;
-		Long y = (s.get_tl().get_y() + s.get_br().get_y()) / 2;
-		board_history.get(history_position).place_shape(new Coord(x,y));
+	public void place_shape(Coord loc) {
+		board_history.get(history_position).place_shape(loc);
 		reset_history();
 	}
 	
-	public void place_shape(Selection s, Board b) {
-		// get the midpoint between two coordinates in selection
-		Long x = (s.get_tl().get_x() + s.get_br().get_x()) / 2;
-		Long y = (s.get_tl().get_y() + s.get_br().get_y()) / 2;
-		board_history.get(history_position).place_shape(new Coord(x,y), b);
+	public void place_shape(Coord loc, Board b) {
+		board_history.get(history_position).place_shape(loc, b);
 		reset_history();
 	}
     
@@ -76,11 +72,11 @@ public class Game {
 		loop_map.put(temp_b,0);
 	}
 	
-	public Board T_get_current_board() {
+	public Board get_current_board() {
 		return board_history.get(history_position);
 	}
 	
-	public int T_get_history_size() {
+	public int get_history_size() {
 		return board_history.size();
 	}
 }

@@ -40,4 +40,26 @@ public class Selection {
 		return Long.max(tl_y, br_y);
 	}
 	
+	public Long get_width() {
+		return get_max_x() - get_min_x();
+	}
+	
+	public Long get_height() {
+		return get_max_y() - get_min_y();
+	}
+	
+	public boolean contains(Coord coord) {
+		Long x = coord.get_x();
+		Long y = coord.get_y();
+		if (
+			x >= get_min_x() &&
+			x <= get_max_x() &&
+			y >= get_min_y() &&
+			y <= get_max_y()
+		) {
+			return true;
+		}
+		return false;
+	}
+	
 }

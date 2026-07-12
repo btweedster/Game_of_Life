@@ -1,24 +1,24 @@
 package life;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Library {
-	List<Board> shapes;
+	Map<String, Board> shapes;
 	
 	Library() {
-		shapes = new ArrayList<Board>();
+		shapes = new HashMap<String, Board>();
 	}
 	
-	public Board get_shape(int i) {
-		return shapes.get(i);
+	public Board get_shape(String name) {
+		return shapes.get(name);
 	}
 	
-	public void save_shape(Board b) {
-		shapes.add(b);
+	public void save_shape(String name, Board b) {
+		shapes.put(name, b);
 	}
 	
-	public List<Board> get_shapes() {
+	public Map<String, Board> get_shapes() {
 		return shapes;
 	}
 }
