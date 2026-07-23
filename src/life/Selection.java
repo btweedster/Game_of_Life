@@ -3,6 +3,10 @@ package life;
 public class Selection {
 	Coord p1;
 	Coord p2;
+	Long min_x;
+	Long max_x;
+	Long min_y;
+	Long max_y;
 	
 	Selection(Coord p1, Coord p2) {
 		this.p1 = p1;
@@ -10,27 +14,39 @@ public class Selection {
 	}
 	
 	public Long get_min_x() {
-		Long x1 = p1.get_x();
-		Long x2 = p2.get_x();
-		return Long.min(x1, x2);
+		if (min_x == null) {
+			Long x1 = p1.get_x();
+			Long x2 = p2.get_x();
+			min_x = Long.min(x1, x2);
+		}
+		return min_x;
 	}
 	
 	public Long get_max_x() {
-		Long x1 = p1.get_x();
-		Long x2 = p2.get_x();
-		return Long.max(x1, x2);
+		if (max_x == null) {
+			Long x1 = p1.get_x();
+			Long x2 = p2.get_x();
+			max_x = Long.max(x1, x2);
+		}
+		return max_x;
 	}
 	
 	public Long get_min_y() {
-		Long y1 = p1.get_y();
-		Long y2 = p2.get_y();
-		return Long.min(y1, y2);
+		if (min_y == null) {
+			Long y1 = p1.get_y();
+			Long y2 = p2.get_y();
+			min_y = Long.min(y1, y2);
+		}
+		return min_y;
 	}
 	
 	public Long get_max_y() {
-		Long y1 = p1.get_y();
-		Long y2 = p2.get_y();
-		return Long.max(y1, y2);
+		if (max_y == null) {
+			Long y1 = p1.get_y();
+			Long y2 = p2.get_y();
+			max_y = Long.max(y1, y2);
+		}
+		return max_y;
 	}
 	
 	public Long get_width() {
