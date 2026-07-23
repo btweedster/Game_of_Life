@@ -1,6 +1,8 @@
 package life;
 
 import java.util.Map;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import java.util.Set;
 
 public class Controls {
@@ -9,7 +11,8 @@ public class Controls {
 	Board selected_shape;
 	Library library;
 	Selection current_selection;
-	boolean is_playing;
+	final BooleanProperty is_playing = new SimpleBooleanProperty(false);
+	final BooleanProperty has_selection = new SimpleBooleanProperty(false);
 	
 	Controls() {
 		// Do this here so the saved shapes persist through resets
@@ -22,11 +25,19 @@ public class Controls {
 	}
 	
 	public void toggle_playing() {
-		is_playing = !is_playing;
+		is_playing.set(!is_playing.get());
 	}
 	
 	public boolean is_playing() {
+		return is_playing.get();
+	}
+	
+	public BooleanProperty is_playing_prop() {
 		return is_playing;
+	}
+	
+	public BooleanProperty has_selection_prop() {
+		return has_selection;
 	}
 	
 	public Set<Coord> get_current_for_display() {
@@ -35,8 +46,8 @@ public class Controls {
 	
 	public boolean next() {
 		boolean temp = game.forward();
-		if (is_playing) {
-			is_playing = temp;
+		if (is_playing.get()) {
+			is_playing.set(temp);;
 		}
 		return temp;
 	}
@@ -71,12 +82,14 @@ public class Controls {
 		clear_shape();
 	}
 	
-	public void select_cells(Coord top_left,Coord bottom_right) {
-		current_selection = new Selection(top_left,bottom_right);
+	public void select_cells(Coord p1,Coord p2) {
+		current_selection = new Selection(p1,p2);
+		has_selection.set(true);
 	}
 	
 	public void clear_selection() {
 		current_selection = null;
+		has_selection.set(false);
 	}
 	
 	public Selection get_current_selection() {
@@ -87,7 +100,7 @@ public class Controls {
 		game = new Game();
 		speed = 100_000_000; // ~100ms per frame
 		selected_shape = null;
-		current_selection = null;
-		is_playing = false;
+		clear_selection();
+		is_playing.set(false);
 	}
 }

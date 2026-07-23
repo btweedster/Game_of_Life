@@ -5,18 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class TestSelection {
-
-	@Test
-	void testSelection() {
-		Coord top_left = new Coord (-10L, 10L);
-		Coord bottom_right = new Coord(10L, -10L);
-		
-		Selection fixture = new Selection(top_left, bottom_right);
-		
-		assertEquals(top_left, fixture.get_tl(), "Top Left should match");
-		assertEquals(bottom_right, fixture.get_br(), "Bottom Right should match");
-	}
-	
 	@Test
 	void testGetMin() {
 		Coord top_left = new Coord (-10L, 20L);

@@ -65,23 +65,11 @@ public class Gui extends Application {
         Button playBtn = new Button("Start");
         playBtn.setOnAction(_ -> {
         	controller.toggle_playing();
-        	if (controller.is_playing()) {
-        		playBtn.setText("Pause");
-        		prevBtn.setDisable(true);
-        		nextBtn.setDisable(true);
-        	} else {
-        		playBtn.setText("Play");
-        		prevBtn.setDisable(false);
-        		nextBtn.setDisable(false);
-        	}
         });
         
         Button resetBtn = new Button("Reset");
         resetBtn.setOnAction(_ -> {
         	controller.reset();
-    		playBtn.setText("Play");
-    		prevBtn.setDisable(false);
-    		nextBtn.setDisable(false);
             update(gc);
         });
         
@@ -112,10 +100,32 @@ public class Gui extends Application {
         HBox controls = new HBox(10, prevBtn, playBtn, nextBtn, resetBtn, saveBtn, loadBtn);
         BorderPane root = new BorderPane();
         
+        // When playing disable prev and next and change play/pause button to pause
+        // When not playing enable prev and next aand change play/pause button to play
+        controller.is_playing_prop().addListener((_, _, newValue) -> {
+        	if (newValue) {
+        		playBtn.setText("Pause");
+        		prevBtn.setDisable(true);
+        		nextBtn.setDisable(true);
+        	} else {
+        		playBtn.setText("Play");
+        		prevBtn.setDisable(false);
+        		nextBtn.setDisable(false);
+        	}
+        });
+        
+        // Save button is only enabled if there is a current selection to save
+        controller.has_selection_prop().addListener((_, _, newValue) -> {
+        	if (newValue) {
+        		saveBtn.setDisable(false);
+        	} else {
+        		saveBtn.setDisable(true);
+        	}
+        });
+        
         canvas.setOnMousePressed(e -> {
         	click_start = get_mouse_coord(e);
             controller.clear_selection();
-    		saveBtn.setDisable(true);
         });
         
         canvas.setOnMouseDragged(e -> {
@@ -136,11 +146,9 @@ public class Gui extends Application {
         	if (click_start.equals(click_end)) {
         		// start and stop on the same cell, treat as a click
         		controller.clear_selection();
-        		saveBtn.setDisable(true);
         		controller.place_shape(click_end);
         	} else {
             	controller.select_cells(click_start, click_end);
-            	saveBtn.setDisable(false);
         	}
         });
         
@@ -156,10 +164,6 @@ public class Gui extends Application {
                 if (now - lastUpdate >= controller.get_speed()) { 
                     if (controller.is_playing()) {
                         controller.next();
-                    } else {
-                		playBtn.setText("Play");
-                		prevBtn.setDisable(false);
-                		nextBtn.setDisable(false);
                     }
                     update(gc);
                     lastUpdate = now;
