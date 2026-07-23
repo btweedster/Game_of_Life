@@ -90,7 +90,6 @@ public class Gui extends Application {
         	Optional<String> result = shapeNameDialog.showAndWait();
         	result.ifPresent(name -> {
                 controller.save_selection_to_library(name);
-                saveBtn.setDisable(true);
                 loadBtn.setDisable(false);
             });
         });
