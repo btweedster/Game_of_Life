@@ -1,7 +1,7 @@
 # Game of Life
 
 ## Pre-requisites
-I think you need Maven installed
+You need to have Java 26 and Maven installed on your system.
 
 ## Load dependencies
 `mvn clean`
@@ -16,4 +16,4 @@ I think you need Maven installed
 `mvn clean package`
 
 ## Run from build
-`java -jar target/Game_of_Life-0.0.1-SNAPSHOT.jar`
+`java -jar target/Game_of_Life-2.jar`

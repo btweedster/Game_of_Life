@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>Game_of_Life</groupId>
   <artifactId>Game_of_Life</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>2</version>
   <name>Game of Life</name>
   <description>COMP 645: Course Project - Conway's Game of Life</description>
   

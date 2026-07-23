@@ -4,7 +4,7 @@
   <groupId>Game_of_Life</groupId>
   <artifactId>Game_of_Life</artifactId>
   <name>Game of Life</name>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>2</version>
   <description>COMP 645: Course Project - Conway's Game of Life</description>
   <build>
     <sourceDirectory>src</sourceDirectory>
